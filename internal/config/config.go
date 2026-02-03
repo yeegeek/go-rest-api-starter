@@ -32,12 +32,16 @@ type AppConfig struct {
 }
 
 type DatabaseConfig struct {
-	Host     string `mapstructure:"host" yaml:"host"`
-	Port     int    `mapstructure:"port" yaml:"port"`
-	User     string `mapstructure:"user" yaml:"user"`
-	Password string `mapstructure:"password" yaml:"password"`
-	Name     string `mapstructure:"name" yaml:"name"`
-	SSLMode  string `mapstructure:"sslmode" yaml:"sslmode"`
+	Host            string `mapstructure:"host" yaml:"host"`
+	Port            int    `mapstructure:"port" yaml:"port"`
+	User            string `mapstructure:"user" yaml:"user"`
+	Password        string `mapstructure:"password" yaml:"password"`
+	Name            string `mapstructure:"name" yaml:"name"`
+	SSLMode         string `mapstructure:"sslmode" yaml:"sslmode"`
+	MaxOpenConns    int    `mapstructure:"max_open_conns" yaml:"max_open_conns"`       // 最大开放连接数
+	MaxIdleConns    int    `mapstructure:"max_idle_conns" yaml:"max_idle_conns"`       // 最大空闲连接数
+	ConnMaxLifetime int    `mapstructure:"conn_max_lifetime" yaml:"conn_max_lifetime"` // 连接最大生命周期（秒）
+	ConnMaxIdleTime int    `mapstructure:"conn_max_idle_time" yaml:"conn_max_idle_time"` // 连接最大空闲时间（秒）
 }
 
 type RedisConfig struct {
@@ -165,7 +169,11 @@ func bindEnvVariables(v *viper.Viper) {
 		"database.user":                 "DATABASE_USER",
 		"database.password":             "DATABASE_PASSWORD",
 		"database.name":                 "DATABASE_NAME",
-		"database.sslmode":              "DATABASE_SSLMODE",
+			"database.sslmode":              "DATABASE_SSLMODE",
+			"database.max_open_conns":       "DATABASE_MAX_OPEN_CONNS",
+			"database.max_idle_conns":       "DATABASE_MAX_IDLE_CONNS",
+			"database.conn_max_lifetime":    "DATABASE_CONN_MAX_LIFETIME",
+			"database.conn_max_idle_time":   "DATABASE_CONN_MAX_IDLE_TIME",
 		"jwt.secret":                    "JWT_SECRET",
 		"jwt.access_token_ttl":          "JWT_ACCESS_TOKEN_TTL",
 		"jwt.refresh_token_ttl":         "JWT_REFRESH_TOKEN_TTL",

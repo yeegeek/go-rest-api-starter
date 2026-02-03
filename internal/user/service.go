@@ -210,8 +210,10 @@ func (s *service) PromoteToAdmin(ctx context.Context, userID uint) error {
 }
 
 // hashPassword hashes a plain text password using bcrypt
+// 使用 cost 13 提供更高的安全性
 func hashPassword(password string) (string, error) {
-	hashedBytes, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	const bcryptCost = 13 // 提升安全性，默认为 10
+	hashedBytes, err := bcrypt.GenerateFromPassword([]byte(password), bcryptCost)
 	if err != nil {
 		return "", err
 	}

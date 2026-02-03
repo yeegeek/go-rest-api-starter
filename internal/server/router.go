@@ -1,7 +1,6 @@
 package server
 
 import (
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -30,14 +29,15 @@ func SetupRouter(userHandler *user.Handler, authService auth.Service, cfg *confi
 		cfg.Logging.GetLogLevel(),
 		skipPaths,
 	)
+	// 日志、错误处理和恢复中间件
 	router.Use(middleware.Logger(loggerConfig))
 	router.Use(errors.ErrorHandler())
 	router.Use(gin.Recovery())
 
-	corsConfig := cors.DefaultConfig()
-	corsConfig.AllowAllOrigins = true
-	corsConfig.AllowHeaders = append(corsConfig.AllowHeaders, "Authorization")
-	router.Use(cors.New(corsConfig))
+	// 输入验证中间件 - 防止 SQL 注入和 XSS 攻击
+	router.Use(middleware.InputValidationMiddleware())
+
+	// CORS 和 Rate Limiting 由 API 网关处理
 
 	var checkers []health.Checker
 	if cfg.Health.DatabaseCheckEnabled {
@@ -52,30 +52,6 @@ func SetupRouter(userHandler *user.Handler, authService auth.Service, cfg *confi
 	router.GET("/health/ready", healthHandler.Ready)
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-
-	rlCfg := cfg.Ratelimit
-	if rlCfg.Enabled {
-		router.Use(
-			middleware.NewRateLimitMiddleware(
-				rlCfg.Window,
-				rlCfg.Requests,
-				func(c *gin.Context) string {
-					ip := c.ClientIP()
-					if ip == "" {
-						ip = c.GetHeader("X-Forwarded-For")
-						if ip == "" {
-							ip = c.GetHeader("X-Real-IP")
-						}
-						if ip == "" {
-							ip = "unknown"
-						}
-					}
-					return ip
-				},
-				nil,
-			),
-		)
-	}
 
 	v1 := router.Group("/api/v1")
 	{

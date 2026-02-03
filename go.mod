@@ -88,3 +88,13 @@ require (
 github.com/redis/go-redis/v9 v9.7.0
 go.mongodb.org/mongo-driver v1.17.3
 )
+
+require (
+github.com/testcontainers/testcontainers-go v0.28.0
+github.com/testcontainers/testcontainers-go/modules/postgres v0.28.0
+github.com/testcontainers/testcontainers-go/modules/redis v0.28.0
+)
+
+require (
+go.uber.org/fx v1.20.1
+)

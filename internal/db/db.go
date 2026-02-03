@@ -94,9 +94,19 @@ func NewPostgresDBFromDatabaseConfig(cfg config.DatabaseConfig) (*gorm.DB, error
 		return nil, fmt.Errorf("failed to get sql.DB from gorm DB: %w", err)
 	}
 
-	sqlDB.SetConnMaxLifetime(time.Minute * 30)
-	sqlDB.SetMaxIdleConns(10)
-	sqlDB.SetMaxOpenConns(100)
+	// 使用配置文件中的连接池参数
+	if cfg.MaxOpenConns > 0 {
+		sqlDB.SetMaxOpenConns(cfg.MaxOpenConns)
+	}
+	if cfg.MaxIdleConns > 0 {
+		sqlDB.SetMaxIdleConns(cfg.MaxIdleConns)
+	}
+	if cfg.ConnMaxLifetime > 0 {
+		sqlDB.SetConnMaxLifetime(time.Duration(cfg.ConnMaxLifetime) * time.Second)
+	}
+	if cfg.ConnMaxIdleTime > 0 {
+		sqlDB.SetConnMaxIdleTime(time.Duration(cfg.ConnMaxIdleTime) * time.Second)
+	}
 
 	return db, nil
 }

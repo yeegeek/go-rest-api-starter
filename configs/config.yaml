@@ -24,8 +24,12 @@ database:
   port: 5432                        # Override with DATABASE_PORT  
   user: "postgres"                  # Override with DATABASE_USER
   password: ""                      # Override with DATABASE_PASSWORD (recommended)
-  name: "go_rest_api_starter"                      # Override with DATABASE_NAME
+  name: "go_rest_api_starter"       # Override with DATABASE_NAME
   sslmode: "disable"                # Override with DATABASE_SSLMODE
+  max_open_conns: 25                # Override with DATABASE_MAX_OPEN_CONNS
+  max_idle_conns: 5                 # Override with DATABASE_MAX_IDLE_CONNS
+  conn_max_lifetime: 3600           # Override with DATABASE_CONN_MAX_LIFETIME (seconds)
+  conn_max_idle_time: 600           # Override with DATABASE_CONN_MAX_IDLE_TIME (seconds)
 
 jwt:
   access_token_ttl: "15m"           # Override with JWT_ACCESS_TOKEN_TTL
