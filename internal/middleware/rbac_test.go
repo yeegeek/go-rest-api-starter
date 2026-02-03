@@ -143,7 +143,7 @@ func TestRequireAdmin(t *testing.T) {
 				c.Next()
 			})
 
-			router.Use(RequireAdmin())
+				router.Use(RequireAdminRole())
 			router.GET("/admin", func(c *gin.Context) {
 				c.JSON(http.StatusOK, gin.H{"message": "admin access granted"})
 			})

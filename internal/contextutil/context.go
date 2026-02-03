@@ -2,20 +2,39 @@ package contextutil
 
 import (
 	"fmt"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
+)
 
-	"github.com/yeegeek/go-rest-api-starter/internal/middleware"
+// Context keys
+const (
+	UserIDKey   = "user_id"
+	UserRoleKey = "user_role"
 )
 
 // GetUserID 从上下文获取用户 ID
 // 返回 0 表示未找到
 func GetUserID(c *gin.Context) uint {
-	userID, exists := middleware.GetUserIDFromContext(c)
+	userIDValue, exists := c.Get(UserIDKey)
 	if !exists {
 		return 0
 	}
-	return userID
+	
+	switch v := userIDValue.(type) {
+	case uint:
+		return v
+	case int:
+		return uint(v)
+	case string:
+		id, err := strconv.ParseUint(v, 10, 32)
+		if err != nil {
+			return 0
+		}
+		return uint(id)
+	default:
+		return 0
+	}
 }
 
 // MustGetUserID 获取用户 ID 或返回错误
@@ -30,11 +49,15 @@ func MustGetUserID(c *gin.Context) (uint, error) {
 // GetUserRole 从上下文获取用户角色
 // 返回空字符串表示未找到
 func GetUserRole(c *gin.Context) string {
-	role, exists := middleware.GetUserRoleFromContext(c)
+	roleValue, exists := c.Get(UserRoleKey)
 	if !exists {
 		return ""
 	}
-	return role
+	
+	if role, ok := roleValue.(string); ok {
+		return role
+	}
+	return ""
 }
 
 // MustGetUserRole 获取用户角色或返回错误
@@ -78,4 +101,14 @@ func GetRoles(c *gin.Context) []string {
 		return []string{}
 	}
 	return []string{role}
+}
+
+// SetUserID 设置用户 ID 到上下文
+func SetUserID(c *gin.Context, userID uint) {
+	c.Set(UserIDKey, userID)
+}
+
+// SetUserRole 设置用户角色到上下文
+func SetUserRole(c *gin.Context, role string) {
+	c.Set(UserRoleKey, role)
 }
