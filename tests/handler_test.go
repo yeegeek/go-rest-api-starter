@@ -14,11 +14,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"gorm.io/gorm"
 
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/auth"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/config"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/db"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/server"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/user"
+	"github.com/yeegeek/go-rest-api-starter/internal/auth"
+	"github.com/yeegeek/go-rest-api-starter/internal/config"
+	"github.com/yeegeek/go-rest-api-starter/internal/db"
+	"github.com/yeegeek/go-rest-api-starter/internal/server"
+	"github.com/yeegeek/go-rest-api-starter/internal/user"
 )
 
 // createTestSchema creates the SQLite test schema using GORM AutoMigrate for consistency

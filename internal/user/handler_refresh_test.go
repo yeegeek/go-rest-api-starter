@@ -12,8 +12,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/auth"
-	apiErrors "github.com/vahiiiid/go-rest-api-boilerplate/internal/errors"
+	"github.com/yeegeek/go-rest-api-starter/internal/auth"
+	apiErrors "github.com/yeegeek/go-rest-api-starter/internal/errors"
 )
 
 func TestHandler_RefreshToken(t *testing.T) {

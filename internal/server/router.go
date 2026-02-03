@@ -7,12 +7,12 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"gorm.io/gorm"
 
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/auth"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/config"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/errors"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/health"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/middleware"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/user"
+	"github.com/yeegeek/go-rest-api-starter/internal/auth"
+	"github.com/yeegeek/go-rest-api-starter/internal/config"
+	"github.com/yeegeek/go-rest-api-starter/internal/errors"
+	"github.com/yeegeek/go-rest-api-starter/internal/health"
+	"github.com/yeegeek/go-rest-api-starter/internal/middleware"
+	"github.com/yeegeek/go-rest-api-starter/internal/user"
 )
 
 // SetupRouter creates and configures the Gin router
@@ -79,29 +79,27 @@ func SetupRouter(userHandler *user.Handler, authService auth.Service, cfg *confi
 
 	v1 := router.Group("/api/v1")
 	{
-		authGroup := v1.Group("/auth")
+		// 公开端点（无需认证）
+		publicGroup := v1.Group("/public")
 		{
-			authGroup.POST("/register", userHandler.Register)
-			authGroup.POST("/login", userHandler.Login)
-			authGroup.POST("/refresh", userHandler.RefreshToken)
-			authGroup.POST("/logout", auth.AuthMiddleware(authService), userHandler.Logout)
-			authGroup.GET("/me", auth.AuthMiddleware(authService), userHandler.GetMe)
+			publicGroup.POST("/register", userHandler.Register)
 		}
 
-		// User endpoints - authenticated users can access their own resources
+		// 用户端点 - 需要网关认证
 		usersGroup := v1.Group("/users")
-		usersGroup.Use(auth.AuthMiddleware(authService))
+		usersGroup.Use(middleware.GatewayAuthMiddleware())
 		{
+			usersGroup.GET("/me", userHandler.GetMe)
 			usersGroup.GET("/:id", userHandler.GetUser)
 			usersGroup.PUT("/:id", userHandler.UpdateUser)
 			usersGroup.DELETE("/:id", userHandler.DeleteUser)
 		}
 
-		// Admin endpoints - admin role required, following REST best practices
+		// 管理员端点 - 需要网关认证和管理员角色
 		adminGroup := v1.Group("/admin")
-		adminGroup.Use(auth.AuthMiddleware(authService), middleware.RequireAdmin())
+		adminGroup.Use(middleware.GatewayAuthMiddleware(), middleware.RequireAdminRole())
 		{
-			// User management endpoints
+			// 用户管理端点
 			adminGroup.GET("/users", userHandler.ListUsers)
 			adminGroup.GET("/users/:id", userHandler.GetUser)
 			adminGroup.PUT("/users/:id", userHandler.UpdateUser)

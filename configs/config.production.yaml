@@ -9,7 +9,7 @@
 # ===========================================
 
 app:
-  name: "GRAB API"
+  name: "Go REST API Starter"
   environment: "production"
   debug: false                      # Disable debug mode in production
 
@@ -18,7 +18,7 @@ database:
   port: 5432
   user: "postgres"
   password: ""                      # REQUIRED: set via DATABASE_PASSWORD environment variable
-  name: "grab"
+  name: "go_rest_api_starter"
   sslmode: "require"                # SSL required in production
 
 jwt:

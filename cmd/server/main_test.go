@@ -87,7 +87,7 @@ func TestGracefulShutdown_Integration(t *testing.T) {
 		"DATABASE_PORT":          "5432",
 		"DATABASE_USER":          "postgres",
 		"DATABASE_PASSWORD":      "postgres",
-		"DATABASE_NAME":          "grab",
+		"DATABASE_NAME":          "go_rest_api_starter",
 		"SERVER_PORT":            "18080",
 		"SERVER_SHUTDOWNTIMEOUT": "5",
 	}
@@ -215,7 +215,7 @@ func TestHTTPServer_TimeoutBehavior(t *testing.T) {
 	t.Setenv("DATABASE_PORT", "5432")
 	t.Setenv("DATABASE_USER", "postgres")
 	t.Setenv("DATABASE_PASSWORD", "postgres")
-	t.Setenv("DATABASE_NAME", "grab")
+	t.Setenv("DATABASE_NAME", "go_rest_api_starter")
 	t.Setenv("SERVER_PORT", "18081")
 	t.Setenv("SERVER_READTIMEOUT", "2")
 	t.Setenv("SERVER_WRITETIMEOUT", "2")
@@ -268,7 +268,7 @@ func TestServerShutdown_WithActiveConnections(t *testing.T) {
 	t.Setenv("DATABASE_PORT", "5432")
 	t.Setenv("DATABASE_USER", "postgres")
 	t.Setenv("DATABASE_PASSWORD", "postgres")
-	t.Setenv("DATABASE_NAME", "grab")
+	t.Setenv("DATABASE_NAME", "go_rest_api_starter")
 	t.Setenv("SERVER_PORT", "18082")
 	t.Setenv("SERVER_SHUTDOWNTIMEOUT", "10")
 
@@ -327,7 +327,7 @@ func TestServerConfig_DefaultValues(t *testing.T) {
 	t.Setenv("DATABASE_PORT", "5432")
 	t.Setenv("DATABASE_USER", "postgres")
 	t.Setenv("DATABASE_PASSWORD", "postgres")
-	t.Setenv("DATABASE_NAME", "grab")
+	t.Setenv("DATABASE_NAME", "go_rest_api_starter")
 	t.Setenv("SERVER_PORT", "18083")
 
 	done := make(chan error, 1)
@@ -370,7 +370,7 @@ func TestHTTPServer_MaxHeaderBytes(t *testing.T) {
 	t.Setenv("DATABASE_PORT", "5432")
 	t.Setenv("DATABASE_USER", "postgres")
 	t.Setenv("DATABASE_PASSWORD", "postgres")
-	t.Setenv("DATABASE_NAME", "grab")
+	t.Setenv("DATABASE_NAME", "go_rest_api_starter")
 	t.Setenv("SERVER_PORT", "18084")
 	t.Setenv("SERVER_MAXHEADERBYTES", "1024")
 

@@ -14,7 +14,7 @@
 # ===========================================
 
 app:
-  name: "GRAB API"                  # Override with APP_NAME
+  name: "Go REST API Starter"                  # Override with APP_NAME
   version: "1.0.0"                  # Override with APP_VERSION
   environment: "development"        # Override with APP_ENVIRONMENT
   debug: true                       # Override with APP_DEBUG
@@ -24,7 +24,7 @@ database:
   port: 5432                        # Override with DATABASE_PORT  
   user: "postgres"                  # Override with DATABASE_USER
   password: ""                      # Override with DATABASE_PASSWORD (recommended)
-  name: "grab"                      # Override with DATABASE_NAME
+  name: "go_rest_api_starter"                      # Override with DATABASE_NAME
   sslmode: "disable"                # Override with DATABASE_SSLMODE
 
 jwt:
@@ -56,3 +56,15 @@ migrations:
 health:
   timeout: 5                        # Override with HEALTH_TIMEOUT (seconds)
   database_check_enabled: true      # Override with HEALTH_DATABASE_CHECK_ENABLED
+
+redis:
+  enabled: false                    # Override with REDIS_ENABLED
+  host: "redis"                     # Override with REDIS_HOST
+  port: 6379                        # Override with REDIS_PORT
+  password: ""                      # Override with REDIS_PASSWORD
+  db: 0                             # Override with REDIS_DB
+
+mongodb:
+  enabled: false                    # Override with MONGODB_ENABLED
+  uri: "mongodb://mongodb:27017"   # Override with MONGODB_URI
+  database: "go_rest_api_starter"  # Override with MONGODB_DATABASE

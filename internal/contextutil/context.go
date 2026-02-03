@@ -5,45 +5,20 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/auth"
+	"github.com/yeegeek/go-rest-api-starter/internal/middleware"
 )
 
-// GetUser retrieves the authenticated user claims from context
-// Returns nil if not found or invalid type
-func GetUser(c *gin.Context) *auth.Claims {
-	value, exists := c.Get(auth.KeyUser)
-	if !exists {
-		return nil
-	}
-
-	claims, ok := value.(*auth.Claims)
-	if !ok {
-		return nil
-	}
-
-	return claims
-}
-
-// MustGetUser retrieves user claims or returns error
-func MustGetUser(c *gin.Context) (*auth.Claims, error) {
-	claims := GetUser(c)
-	if claims == nil {
-		return nil, fmt.Errorf("user not found in context")
-	}
-	return claims, nil
-}
-
-// GetUserID retrieves the authenticated user's ID from context
-// Returns 0 if not found
+// GetUserID 从上下文获取用户 ID
+// 返回 0 表示未找到
 func GetUserID(c *gin.Context) uint {
-	claims := GetUser(c)
-	if claims == nil {
+	userID, exists := middleware.GetUserIDFromContext(c)
+	if !exists {
 		return 0
 	}
-	return claims.UserID
+	return userID
 }
 
-// MustGetUserID retrieves user ID or returns error
+// MustGetUserID 获取用户 ID 或返回错误
 func MustGetUserID(c *gin.Context) (uint, error) {
 	userID := GetUserID(c)
 	if userID == 0 {
@@ -52,21 +27,31 @@ func MustGetUserID(c *gin.Context) (uint, error) {
 	return userID, nil
 }
 
-// GetEmail retrieves the authenticated user's email from context
-func GetEmail(c *gin.Context) string {
-	claims := GetUser(c)
-	if claims == nil {
+// GetUserRole 从上下文获取用户角色
+// 返回空字符串表示未找到
+func GetUserRole(c *gin.Context) string {
+	role, exists := middleware.GetUserRoleFromContext(c)
+	if !exists {
 		return ""
 	}
-	return claims.Email
+	return role
 }
 
-// IsAuthenticated checks if request has valid authentication
+// MustGetUserRole 获取用户角色或返回错误
+func MustGetUserRole(c *gin.Context) (string, error) {
+	role := GetUserRole(c)
+	if role == "" {
+		return "", fmt.Errorf("user role not found in context")
+	}
+	return role, nil
+}
+
+// IsAuthenticated 检查请求是否已认证
 func IsAuthenticated(c *gin.Context) bool {
-	return GetUser(c) != nil
+	return GetUserID(c) != 0
 }
 
-// CanAccessUser checks if authenticated user can access target user
+// CanAccessUser 检查认证用户是否可以访问目标用户
 func CanAccessUser(c *gin.Context, targetUserID uint) bool {
 	if IsAdmin(c) {
 		return true
@@ -75,39 +60,22 @@ func CanAccessUser(c *gin.Context, targetUserID uint) bool {
 	return authenticatedUserID == targetUserID
 }
 
-// GetUserName retrieves the authenticated user's name from context
-func GetUserName(c *gin.Context) string {
-	claims := GetUser(c)
-	if claims == nil {
-		return ""
-	}
-	return claims.Name
-}
-
-// HasRole checks if user has specific role
+// HasRole 检查用户是否具有特定角色
 func HasRole(c *gin.Context, role string) bool {
-	claims := GetUser(c)
-	if claims == nil {
-		return false
-	}
-	for _, r := range claims.Roles {
-		if r == role {
-			return true
-		}
-	}
-	return false
+	userRole := GetUserRole(c)
+	return userRole == role
 }
 
-// GetRoles retrieves user roles from context
-func GetRoles(c *gin.Context) []string {
-	claims := GetUser(c)
-	if claims == nil {
-		return []string{}
-	}
-	return claims.Roles
-}
-
-// IsAdmin checks if user has admin role
+// IsAdmin 检查用户是否是管理员
 func IsAdmin(c *gin.Context) bool {
 	return HasRole(c, "admin")
+}
+
+// GetRoles 获取用户角色列表（网关模式下只有一个角色）
+func GetRoles(c *gin.Context) []string {
+	role := GetUserRole(c)
+	if role == "" {
+		return []string{}
+	}
+	return []string{role}
 }

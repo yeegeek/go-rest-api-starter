@@ -14,6 +14,8 @@ import (
 type Config struct {
 	App        AppConfig        `mapstructure:"app" yaml:"app"`
 	Database   DatabaseConfig   `mapstructure:"database" yaml:"database"`
+	Redis      RedisConfig      `mapstructure:"redis" yaml:"redis"`
+	MongoDB    MongoDBConfig    `mapstructure:"mongodb" yaml:"mongodb"`
 	JWT        JWTConfig        `mapstructure:"jwt" yaml:"jwt"`
 	Server     ServerConfig     `mapstructure:"server" yaml:"server"`
 	Logging    LoggingConfig    `mapstructure:"logging" yaml:"logging"`
@@ -36,6 +38,20 @@ type DatabaseConfig struct {
 	Password string `mapstructure:"password" yaml:"password"`
 	Name     string `mapstructure:"name" yaml:"name"`
 	SSLMode  string `mapstructure:"sslmode" yaml:"sslmode"`
+}
+
+type RedisConfig struct {
+	Enabled  bool   `mapstructure:"enabled" yaml:"enabled"`
+	Host     string `mapstructure:"host" yaml:"host"`
+	Port     int    `mapstructure:"port" yaml:"port"`
+	Password string `mapstructure:"password" yaml:"password"`
+	DB       int    `mapstructure:"db" yaml:"db"`
+}
+
+type MongoDBConfig struct {
+	Enabled  bool   `mapstructure:"enabled" yaml:"enabled"`
+	URI      string `mapstructure:"uri" yaml:"uri"`
+	Database string `mapstructure:"database" yaml:"database"`
 }
 
 type JWTConfig struct {
@@ -167,9 +183,17 @@ func bindEnvVariables(v *viper.Viper) {
 		"migrations.directory":          "MIGRATIONS_DIRECTORY",
 		"migrations.timeout":            "MIGRATIONS_TIMEOUT",
 		"migrations.locktimeout":        "MIGRATIONS_LOCKTIMEOUT",
-		"health.timeout":                "HEALTH_TIMEOUT",
-		"health.database_check_enabled": "HEALTH_DATABASE_CHECK_ENABLED",
-	}
+			"health.timeout":                "HEALTH_TIMEOUT",
+			"health.database_check_enabled": "HEALTH_DATABASE_CHECK_ENABLED",
+			"redis.enabled":                 "REDIS_ENABLED",
+			"redis.host":                    "REDIS_HOST",
+			"redis.port":                    "REDIS_PORT",
+			"redis.password":                "REDIS_PASSWORD",
+			"redis.db":                      "REDIS_DB",
+			"mongodb.enabled":               "MONGODB_ENABLED",
+			"mongodb.uri":                   "MONGODB_URI",
+			"mongodb.database":              "MONGODB_DATABASE",
+		}
 	for key, env := range envBindings {
 		_ = v.BindEnv(key, env)
 	}

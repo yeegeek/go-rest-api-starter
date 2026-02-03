@@ -83,7 +83,7 @@ jwt:
 		tempDir := t.TempDir()
 		path := createTempConfigFile(t, tempDir, "config.yaml", `
 app:
-  name: "GRAB API (development)"
+  name: "Go REST API Starter (development)"
   environment: "development"
   debug: true
 database:
@@ -114,7 +114,7 @@ ratelimit:
 		// These values should come from config file defaults
 		assert.Equal(t, 10, cfg.Server.ReadTimeout)
 		assert.Equal(t, "development", cfg.App.Environment)
-		assert.Equal(t, "GRAB API (development)", cfg.App.Name)
+		assert.Equal(t, "Go REST API Starter (development)", cfg.App.Name)
 		assert.Equal(t, "hKLmNpQrStUvWxYzABCDEFGHIJKLMNOP", cfg.JWT.Secret)
 	})
 

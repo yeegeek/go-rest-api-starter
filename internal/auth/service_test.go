@@ -8,7 +8,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/config"
+	"github.com/yeegeek/go-rest-api-starter/internal/config"
 )
 
 func TestNewService(t *testing.T) {

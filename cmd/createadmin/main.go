@@ -14,8 +14,8 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/config"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/user"
+	"github.com/yeegeek/go-rest-api-starter/internal/config"
+	"github.com/yeegeek/go-rest-api-starter/internal/user"
 )
 
 var emailRegex = regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)

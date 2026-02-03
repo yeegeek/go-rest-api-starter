@@ -1,4 +1,4 @@
-module github.com/vahiiiid/go-rest-api-boilerplate
+module github.com/yeegeek/go-rest-api-starter
 
 go 1.24.0
 
@@ -82,4 +82,9 @@ require (
 	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+)
+
+require (
+github.com/redis/go-redis/v9 v9.7.0
+go.mongodb.org/mongo-driver v1.17.3
 )

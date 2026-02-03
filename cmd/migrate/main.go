@@ -9,9 +9,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/config"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/db"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/migrate"
+	"github.com/yeegeek/go-rest-api-starter/internal/config"
+	"github.com/yeegeek/go-rest-api-starter/internal/db"
+	"github.com/yeegeek/go-rest-api-starter/internal/migrate"
 )
 
 func main() {

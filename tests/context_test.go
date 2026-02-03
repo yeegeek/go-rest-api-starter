@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/auth"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/contextutil"
+	"github.com/yeegeek/go-rest-api-starter/internal/auth"
+	"github.com/yeegeek/go-rest-api-starter/internal/contextutil"
 )
 
 func TestGetUser(t *testing.T) {

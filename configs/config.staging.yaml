@@ -9,7 +9,7 @@
 # ===========================================
 
 app:
-  name: "GRAB API (staging)"
+  name: "Go REST API Starter (staging)"
   environment: "staging"
   debug: false                      # Debug disabled in staging
 
@@ -18,7 +18,7 @@ database:
   port: 5432
   user: "postgres"
   password: "postgres"              # Default for staging (override with DATABASE_PASSWORD)
-  name: "grab"
+  name: "go_rest_api_starter"
   sslmode: "require"                # SSL required in staging
 
 jwt:

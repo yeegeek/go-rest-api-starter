@@ -10,9 +10,9 @@ import (
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/auth"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/config"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/user"
+	"github.com/yeegeek/go-rest-api-starter/internal/auth"
+	"github.com/yeegeek/go-rest-api-starter/internal/config"
+	"github.com/yeegeek/go-rest-api-starter/internal/user"
 )
 
 func TestSetupRouter_HealthEndpoint(t *testing.T) {

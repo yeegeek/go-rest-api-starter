@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/auth"
+	"github.com/yeegeek/go-rest-api-starter/internal/auth"
 )
 
 func TestRequireRole(t *testing.T) {

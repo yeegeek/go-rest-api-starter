@@ -13,7 +13,7 @@ import (
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/config"
+	"github.com/yeegeek/go-rest-api-starter/internal/config"
 )
 
 var (

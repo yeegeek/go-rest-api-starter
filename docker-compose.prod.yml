@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_USER: ${DATABASE_USER:-postgres}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-postgres}
-      POSTGRES_DB: ${DATABASE_NAME:-grab}
+      POSTGRES_DB: ${DATABASE_NAME:-go_rest_api_starter}
     # No ports exposed to host - only accessible within Docker network
     expose:
       - "${DATABASE_PORT:-5432}"

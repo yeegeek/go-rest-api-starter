@@ -12,13 +12,13 @@ import (
 
 	"gorm.io/gorm"
 
-	_ "github.com/vahiiiid/go-rest-api-boilerplate/api/docs"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/auth"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/config"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/db"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/migrate"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/server"
-	"github.com/vahiiiid/go-rest-api-boilerplate/internal/user"
+	_ "github.com/yeegeek/go-rest-api-starter/api/docs"
+	"github.com/yeegeek/go-rest-api-starter/internal/auth"
+	"github.com/yeegeek/go-rest-api-starter/internal/config"
+	"github.com/yeegeek/go-rest-api-starter/internal/db"
+	"github.com/yeegeek/go-rest-api-starter/internal/migrate"
+	"github.com/yeegeek/go-rest-api-starter/internal/server"
+	"github.com/yeegeek/go-rest-api-starter/internal/user"
 )
 
 // @title Go REST API Boilerplate
